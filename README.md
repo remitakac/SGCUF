@@ -6,13 +6,6 @@ It is designed for images where **structure matters more than pixel-level fideli
 
 ---
 
-| Original | SGCUF reconstruction (T=20, Q=75) | Difference heatmap |
-|----------|-----------------------------------|--------------------|
-| ![](docs/real_test.png) | ![](docs/out_T20_Q75.png) | ![](docs/heatmap_diff_inverted.png) |
-The difference heatmap is inverted...
-
----
-
 ## 📌 Why SGCUF Exists
 
 Traditional formats (JPEG, PNG, WebP) compress **pixels**, not **structure**.  
