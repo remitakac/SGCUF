@@ -74,7 +74,13 @@ A `.sgcu` file contains:
 SGCUF is implemented in Python.
 
 ```
-pip install sgcuf
+## How to Run
+
+```bash
+git clone https://github.com/remitakac/SGCUF
+cd SGCUF
+python sgcu_core.py
+
 ```
 
 *(package name placeholder — adjust when published)*
@@ -157,5 +163,7 @@ Detailed quality, size and stability graphs for SGCUF are available in:
 
 ## 👤 Author
 
-Milan T. — ARXA System Architect  
+Milan T. —System Architect--This project is part of a broader development line focused on deterministic approaches and new concepts in the field of meta‑architectures.
+
+
 
