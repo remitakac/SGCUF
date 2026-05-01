@@ -7,7 +7,18 @@ This document describes the binary structure of the SGCUF format (Suprapixel‑G
 SGCUF combines suprapixel maps, edge maps, and JPEG‑compressed YCbCr channels into a single compact file.
 
 ---
+## Naming Note (EN + SK)
 
+### English
+This document describes the SGCUF format.  
+SGCU is the algorithm; SGCUF is the file container.  
+Future formats may use different suffixes (e.g., SGCUL, SGCUX).
+
+### Slovak
+Tento dokument popisuje SGCUF formát.  
+SGCU je algoritmus; SGCUF je súborový kontajner.  
+Budúce formáty môžu používať iné sufixy (napr. SGCUL, SGCUX).
+---
 ## 1. Magic Header
 
 Every SGCUF file begins with the ASCII sequence:
