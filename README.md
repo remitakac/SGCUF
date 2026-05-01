@@ -125,6 +125,8 @@ Repozitár je zatiaľ súkromný.
 Licencia bude pridaná po zverejnení (pravdepodobne MIT).
 ## Naming Standard (EN + SK)
 
+---
+
 ### English
 SGCU is the main name of the algorithm and the entire technology family.  
 Suffix letters define specific formats, modules, or variants.
