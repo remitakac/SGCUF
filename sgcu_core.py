@@ -3,7 +3,7 @@ from PIL import Image
 import io
 
 # -----------------------------
-# YCbCr konverzie
+# YCbCr conversions
 # -----------------------------
 
 def rgb_to_ycbcr(img):
@@ -58,7 +58,7 @@ def detect_suprapixels_y(Y, T):
     return supra
 
 # -----------------------------
-# JPEG kompresia jedného kanála
+# JPEG compression of a single channel
 # -----------------------------
 
 def jpeg_compress_channel(channel, Q):
@@ -73,19 +73,18 @@ def jpeg_decompress_channel(jpeg_bytes):
     return np.asarray(img).astype(np.float32)
 
 # -----------------------------
-# Hybridná rekonštrukcia
+# Hybrid reconstruction
 # -----------------------------
 
 def sgcu_hybrid_ycbcr(Y_jpeg, Cb_jpeg, Cr_jpeg, edges, supra):
-    # JPEG dekódované kanály
+    # JPEG decoded channels
     Yd = Y_jpeg
     Cbd = Cb_jpeg
     Crd = Cr_jpeg
 
-    # Hybridná rekonštrukcia
+    # Hybrid reconstruction (placeholder logic for now)
     Y_final = np.where(edges == 1, Yd, Yd)
     Cb_final = Cbd
     Cr_final = Crd
 
     return Y_final, Cb_final, Cr_final
-
