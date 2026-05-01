@@ -123,3 +123,32 @@ Podrobná špecifikácia je v `SPEC.md`.
 ## Licencia
 Repozitár je zatiaľ súkromný.  
 Licencia bude pridaná po zverejnení (pravdepodobne MIT).
+## Naming Standard (EN + SK)
+
+### English
+SGCU is the main name of the algorithm and the entire technology family.  
+Suffix letters define specific formats, modules, or variants.
+
+- SGCU = core algorithm and brand
+- SGCUF = SGCU File Format (current format)
+- SGCUL = SGCU Lossless Format
+- SGCUX = SGCU Experimental Format
+- SGCUH = SGCU Hybrid Format
+- SGCU‑E = SGCU Edge‑Enhanced algorithm variant
+- SGCU‑S = SGCU Suprapixel variant
+
+The suffix is not permanent. It changes depending on the module or format being developed.
+
+### Slovak
+SGCU je hlavný názov algoritmu a celej technologickej rodiny.  
+Písmená na konci určujú konkrétny formát, modul alebo variant.
+
+- SGCU = základný algoritmus a značka
+- SGCUF = SGCU súborový formát (aktuálny formát)
+- SGCUL = SGCU bezstratový formát
+- SGCUX = SGCU experimentálny formát
+- SGCUH = SGCU hybridný formát
+- SGCU‑E = SGCU variant so zvýraznenými hranami
+- SGCU‑S = SGCU suprapixelový variant
+
+Sufix nie je trvalý. Mení sa podľa toho, čo sa práve vyvíja.
