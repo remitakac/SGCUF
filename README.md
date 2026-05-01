@@ -6,6 +6,11 @@ It is designed for images where **structure matters more than pixel-level fideli
 
 ---
 
+## Visual comparison
+![](docs/visual_triplet_sgcu.png)
+
+---
+
 ## 📌 Why SGCUF Exists
 
 Traditional formats (JPEG, PNG, WebP) compress **pixels**, not **structure**.  
