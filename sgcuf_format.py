@@ -11,7 +11,7 @@ MAGIC = b"SGCUFMT\n"
 VERSION = 1
 
 # -----------------------------------
-# Padding na párne rozmery
+# Padding to even dimensions
 # -----------------------------------
 
 def pad_even(img):
@@ -111,3 +111,4 @@ def decode_sgcuf(path):
 
     rgb = ycbcr_to_rgb(Yf, Cbf, Crf)
     return rgb.crop((0, 0, orig_W, orig_H))
+
