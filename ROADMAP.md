@@ -100,3 +100,17 @@ SGCUF má spájať:
 - a budúce SGCU‑založené vylepšenia.
 
 Cieľ: kompaktný, interpretovateľný a rozšíriteľný hybridný obrazový formát.
+---
+## Naming System (EN + SK)
+
+### English
+The SGCU ecosystem uses a modular naming system:
+- SGCU = core algorithm
+- SGCU*X* = specific file formats or modules
+This allows future extensions without breaking the main identity.
+
+### Slovak
+SGCU ekosystém používa modulárny systém pomenovania:
+- SGCU = hlavný algoritmus
+- SGCU*X* = konkrétne formáty alebo moduly
+Toto umožňuje budúce rozšírenia bez narušenia hlavnej identity.
