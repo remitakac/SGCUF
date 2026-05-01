@@ -152,7 +152,7 @@ sgcuf decode input.sgcu output.png
 
 ## 📄 License
 
-MIT License (or your chosen license)
+Licensed under the MIT License.
 
 ---
 ## Performance Analysis
