@@ -1,4 +1,5 @@
 # SGCUF — Structural Gradient Compression Unit Format
+Version: 0.9.0 (public preview)
 
 SGCUF is a hybrid image format combining structural analysis (edges, suprapixels) with traditional JPEG compression.  
 It is designed for images where **structure matters more than pixel-level fidelity**.
