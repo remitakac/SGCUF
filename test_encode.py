@@ -1,6 +1,6 @@
 from sgcuf_format import encode_sgcuf
 
-# Spustí enkóder na testovacom obrázku
+# Runs the encoder on the test image
 encode_sgcuf(
     input_path="examples/real_test.png",
     output_path="output/real_test.sgcuf",
@@ -8,5 +8,4 @@ encode_sgcuf(
     Q=85
 )
 
-print("Hotovo: encoded → output/real_test.sgcuf")
-
+print("Done: encoded → output/real_test.sgcuf")
