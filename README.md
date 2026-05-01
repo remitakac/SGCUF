@@ -1,157 +1,148 @@
-# SGCUF — SGCU Hybrid Image Format
+# SGCUF — Structural Gradient Compression Unit Format
 
-## English Version
-
-SGCUF is an experimental hybrid image format based on SGCU (Suprapixel‑Gradient‑Contrast Units) combined with JPEG compression.  
-The goal is to merge:
-
-- suprapixel maps (low‑contrast regions),
-- edge maps (high‑contrast structures),
-- JPEG‑compressed Y, Cb, Cr channels,
-
-into a single compact binary format.
+SGCUF is a hybrid image format combining structural analysis (edges, suprapixels) with traditional JPEG compression.  
+It is designed for images where **structure matters more than pixel-level fidelity**.
 
 ---
 
-## Repository Structure
+## 📌 Why SGCUF Exists
 
-SGCUF/
-├── sgcu_core.py
-├── sgcuf_format.py
-├── test_encode.py
-├── test_decode.py
-│
-├── examples/
-│   └── real_test.png
-│
-└── output/
+Traditional formats (JPEG, PNG, WebP) compress **pixels**, not **structure**.  
+This causes problems in:
 
----
+- maps  
+- UI elements  
+- diagrams  
+- technical drawings  
+- textures with sharp edges  
 
-## Usage
-
-### Encode
-python test_encode.py
-
-Output:
-output/real_test.sgcuf
-
-### Decode
-python test_decode.py
-
-Output:
-output/real_test_decoded.png
+SGCUF solves this by storing **structural layers** separately and losslessly.
 
 ---
 
-## SGCUF Format (Short Overview)
+## 🧠 High-Level Concept
 
-- Magic header: `SGCUFMT\n`
-- Version: 1
-- Metadata: width, height, T, Q
-- JPEG Y, Cb, Cr channels
-- Edge map (binary)
-- Suprapixel map (binary)
+SGCUF is built on the SGCU algorithm:
 
-A full technical specification is available in `SPEC.md`.
+- detects edges  
+- segments suprapixels  
+- extracts structural relationships  
+- compresses color channels via JPEG  
+- stores everything in a unified container  
 
----
+This results in:
 
-## License
-The repository is currently private.  
-License will be added upon release (likely MIT).
-
----
-
-# Slovenská verzia
-
-SGCUF je experimentálny hybridný obrazový formát založený na SGCU (Suprapixel‑Gradient‑Contrast Units) a JPEG kompresii.  
-Cieľom je kombinovať:
-
-- suprapixelové mapy (nízky kontrast),
-- edge mapy (vysoký kontrast),
-- JPEG kompresiu Y, Cb, Cr kanálov,
-
-do jedného kompaktného binárneho formátu.
+- sharper edges  
+- cleaner shapes  
+- fewer artifacts  
+- better readability for technical content  
 
 ---
 
-## Štruktúra repozitára
+## 🏗️ SGCUF File Structure
 
-SGCUF/
-├── sgcu_core.py
-├── sgcuf_format.py
-├── test_encode.py
-├── test_decode.py
-│
-├── examples/
-│   └── real_test.png
-│
-└── output/
+A `.sgcu` file contains:
 
----
+1. **Header**  
+   - version  
+   - flags  
+   - structural metadata  
 
-## Použitie
+2. **Structural Layers**  
+   - edge map  
+   - suprapixel map  
 
-### Encode
-python test_encode.py
+3. **Color Layers (YCbCr)**  
+   - each compressed via JPEG  
 
-Výstup:
-output/real_test.sgcuf
-
-### Decode
-python test_decode.py
-
-Výstup:
-output/real_test_decoded.png
+4. **Optional Compression**  
+   - RLE for edges (planned)  
+   - delta compression for suprapixels (planned)  
 
 ---
 
-## Formát SGCUF (stručný popis)
+## 🚀 Installation
 
-- Magic header: `SGCUFMT\n`
-- Version: 1
-- Metadata: rozmery, T, Q
-- JPEG Y, Cb, Cr
-- Edge mapa (binárna)
-- Suprapixel mapa (binárna)
+SGCUF is implemented in Python.
 
-Podrobná špecifikácia je v `SPEC.md`.
+```
+pip install sgcuf
+```
 
----
-
-## Licencia
-Repozitár je zatiaľ súkromný.  
-Licencia bude pridaná po zverejnení (pravdepodobne MIT).
-## Naming Standard (EN + SK)
+*(package name placeholder — adjust when published)*
 
 ---
 
-### English
-SGCU is the main name of the algorithm and the entire technology family.  
-Suffix letters define specific formats, modules, or variants.
+## 🧪 Usage Example
 
-- SGCU = core algorithm and brand
-- SGCUF = SGCU File Format (current format)
-- SGCUL = SGCU Lossless Format
-- SGCUX = SGCU Experimental Format
-- SGCUH = SGCU Hybrid Format
-- SGCU‑E = SGCU Edge‑Enhanced algorithm variant
-- SGCU‑S = SGCU Suprapixel variant
+### Encode PNG → SGCUF
 
-The suffix is not permanent. It changes depending on the module or format being developed.
+```python
+from sgcuf import encode
 
-### Slovak
-SGCU je hlavný názov algoritmu a celej technologickej rodiny.  
-Písmená na konci určujú konkrétny formát, modul alebo variant.
+encode("input.png", "output.sgcu")
+```
 
-- SGCU = základný algoritmus a značka
-- SGCUF = SGCU súborový formát (aktuálny formát)
-- SGCUL = SGCU bezstratový formát
-- SGCUX = SGCU experimentálny formát
-- SGCUH = SGCU hybridný formát
-- SGCU‑E = SGCU variant so zvýraznenými hranami
-- SGCU‑S = SGCU suprapixelový variant
+### Decode SGCUF → PNG
 
-Sufix nie je trvalý. Mení sa podľa toho, čo sa práve vyvíja.
+```python
+from sgcuf import decode
+
+decode("input.sgcu", "output.png")
+```
+
+---
+
+## 🔧 Command-Line Interface (planned)
+
+```
+sgcuf encode input.png output.sgcu
+sgcuf decode input.sgcu output.png
+```
+
+---
+
+## 🛠️ Pipeline Overview
+
+1. RGB → YCbCr  
+2. Edge detection  
+3. Suprapixel segmentation  
+4. JPEG compression of Y/Cb/Cr  
+5. Structural layers stored  
+6. Packed into SGCUF container  
+
+---
+
+## 📂 Repository Structure
+
+```
+/encoder
+/decoder
+/specification
+/examples
+/tests
+/docs
+```
+
+---
+
+## 🗺️ Roadmap (v1.1)
+
+- RLE compression for edge maps  
+- delta compression for suprapixel layers  
+- CLI tool  
+- performance improvements  
+- experimental SGCU variants  
+
+---
+
+## 📄 License
+
+MIT License (or your chosen license)
+
+---
+
+## 👤 Author
+
+Milan T. — ARXA System Architect  
 
