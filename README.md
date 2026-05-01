@@ -141,6 +141,11 @@ sgcuf decode input.sgcu output.png
 MIT License (or your chosen license)
 
 ---
+## Performance Analysis
+Detailed quality, size and stability graphs for SGCUF are available in:
+[docs/performance](docs/performance/README.md)
+
+---
 
 ## 👤 Author
 
