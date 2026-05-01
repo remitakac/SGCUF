@@ -154,3 +154,4 @@ Písmená na konci určujú konkrétny formát, modul alebo variant.
 - SGCU‑S = SGCU suprapixelový variant
 
 Sufix nie je trvalý. Mení sa podľa toho, čo sa práve vyvíja.
+
