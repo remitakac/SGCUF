@@ -166,7 +166,6 @@ experimental SGCU variants
 
 📄 License
 MIT License
-
 # 📊 Performance Analysis
 
 ## PSNR vs JPEG
