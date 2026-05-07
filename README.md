@@ -165,9 +165,10 @@ experimental SGCU variants
 📄 License
 MIT License
 
-📊 Performance Analysis
-Detailed graphs and comparisons:
-[Zdá sa, že výsledok sa nepodarilo bezpečne zobraziť. Poďme to zmeniť a skúsiť niečo iné.]
+## 📊 Performance Analysis
+Detailed graphs and comparisons:  
+[docs/performance/README.md](docs/performance/README.md)
+
 
 👤 Author
 Milan T. — System Architect
