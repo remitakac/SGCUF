@@ -1,6 +1,3 @@
-🔧 FINÁLNA VERZIA README (kompletný Markdown blok)
-(Toto môžeš rovno vložiť do GitHubu.)
-
 SGCUF — Structural–Raster Hybrid Image Format
 Version: 0.9.0 (public preview)
 
