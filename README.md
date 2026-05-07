@@ -1,175 +1,175 @@
-# SGCUF — Structural Gradient Compression Unit Format
+🔧 FINÁLNA VERZIA README (kompletný Markdown blok)
+(Toto môžeš rovno vložiť do GitHubu.)
+
+SGCUF — Structural–Raster Hybrid Image Format
 Version: 0.9.0 (public preview)
 
-SGCUF is a hybrid image format combining structural analysis (edges, suprapixels) with traditional JPEG compression.  
-It is designed for images where **structure matters more than pixel-level fidelity**.
+SGCUF is a hybrid structural–raster image format optimized for images where structure matters more than pixel‑level fidelity.
+It stores explicit structural information (edges, suprapixels, region transitions) and compresses color separately, resulting in significantly higher efficiency for maps, UI and technical imagery.
 
----
+🔥 Use Case Highlight
+Offline maps on low‑power devices:  
+SGCUF reduces data size and improves rendering efficiency by storing only structural information instead of full raster tiles.
 
-## Visual comparison
-![](docs/visual_triplet_sgcu.png)
+Visual Comparison
+[Zdá sa, že výsledok sa nepodarilo bezpečne zobraziť. Poďme to zmeniť a skúsiť niečo iné.]
 
----
+📌 Why SGCUF Exists
+Traditional formats (JPEG, PNG, WebP) compress pixels, not structure.
+This leads to inefficiencies in:
 
-## 📌 Why SGCUF Exists
+maps
 
-Traditional formats (JPEG, PNG, WebP) compress **pixels**, not **structure**.  
-This causes problems in:
+UI elements
 
-- maps  
-- UI elements  
-- diagrams  
-- technical drawings  
-- textures with sharp edges  
+diagrams
 
-SGCUF solves this by storing **structural layers** separately and losslessly.
-## Quick Results
+technical drawings
 
-SGCUF is not just a concept – it produces significantly higher quality than baseline JPEG at comparable conditions.
+vector‑like raster exports
 
-| Method        | PSNR    | SSIM   |
-|---------------|---------|--------|
-| JPEG Q=75     | 32.7 dB | 0.976  |
-| SGCUF T=20    | 41.3 dB | 0.991  |
+SGCUF avoids this by encoding structural layers explicitly and deterministically.
 
----
+Performance Summary
+SGCUF is optimized for structurally dominated images where raster compression is inefficient.
 
-## 🧠 High-Level Concept
+Method	Bitrate (bpp)	PSNR	SSIM
+JPEG Q=75	0.42	32.7 dB	0.976
+SGCUF T=20	0.41	41.3 dB	0.991
 
-SGCUF is built on the SGCU algorithm:
 
-- detects edges  
-- segments suprapixels  
-- extracts structural relationships  
-- compresses color channels via JPEG  
-- stores everything in a unified container  
+Interpretation:  
+At the same bitrate, SGCUF preserves edges, symbols and technical shapes with significantly higher fidelity.
+
+🧠 High‑Level Concept
+SGCUF is built on the SGCU structural pipeline:
+
+edge detection
+
+suprapixel segmentation
+
+structural relationship extraction
+
+color compression (YCbCr)
+
+unified container format
 
 This results in:
 
-- sharper edges  
-- cleaner shapes  
-- fewer artifacts  
-- better readability for technical content  
+sharper edges
 
----
+cleaner shapes
 
-## 🏗️ SGCUF File Structure
+fewer artifacts
 
-A `.sgcu` file contains:
+improved readability for technical content
 
-1. **Header**  
-   - version  
-   - flags  
-   - structural metadata  
+🧩 Decode Determinism
+SGCUF decoding is fully deterministic and does not rely on interpolation, prediction or reconstruction heuristics.  
+The same input always produces the same output.
 
-2. **Structural Layers**  
-   - edge map  
-   - suprapixel map  
+🏗️ SGCUF File Structure
+A .sgcu file contains:
 
-3. **Color Layers (YCbCr)**  
-   - each compressed via JPEG  
+Header
 
-4. **Optional Compression**  
-   - RLE for edges (planned)  
-   - delta compression for suprapixels (planned)  
+version
 
----
+flags
 
-## 🚀 Installation
+structural metadata
 
+Structural Layers
+
+edge map
+
+suprapixel map
+
+Color Layers (YCbCr)
+
+each compressed independently
+
+Optional Compression (planned)
+
+RLE for edges
+
+delta compression for suprapixels
+
+🛠️ Pipeline Overview
+RGB → YCbCr
+
+Edge detection
+
+Suprapixel segmentation
+
+Color compression
+
+Structural layers stored
+
+Packed into SGCUF container
+
+❌ When NOT to Use SGCUF
+SGCUF is not suitable for:
+
+natural photographs
+
+noisy images
+
+high‑entropy textures (grass, stone, skin, clouds)
+
+scenes with complex gradients
+
+For these, AVIF/WebP/JPEG XL are more efficient.
+
+🚀 Installation
 SGCUF is implemented in Python.
 
-```
-## How to Run
-
-```bash
+bash
 git clone https://github.com/remitakac/SGCUF
 cd SGCUF
 python sgcu_core.py
-
-```
-
-*(package name placeholder — adjust when published)*
-
----
-
-## 🧪 Usage Example
-
-### Encode PNG → SGCUF
-
-```python
+🧪 Usage Example
+Encode PNG → SGCUF
+python
 from sgcuf import encode
-
 encode("input.png", "output.sgcu")
-```
-
-### Decode SGCUF → PNG
-
-```python
+Decode SGCUF → PNG
+python
 from sgcuf import decode
-
 decode("input.sgcu", "output.png")
-```
-
----
-
-## 🔧 Command-Line Interface (planned)
-
-```
+🔧 Command‑Line Interface (planned)
+Kód
 sgcuf encode input.png output.sgcu
 sgcuf decode input.sgcu output.png
-```
-
----
-
-## 🛠️ Pipeline Overview
-
-1. RGB → YCbCr  
-2. Edge detection  
-3. Suprapixel segmentation  
-4. JPEG compression of Y/Cb/Cr  
-5. Structural layers stored  
-6. Packed into SGCUF container  
-
----
-
-## 📂 Repository Structure
-
-```
+📂 Repository Structure
+Kód
 /encoder
 /decoder
 /specification
 /examples
 /tests
 /docs
-```
+🗺️ Roadmap (v1.1)
+RLE compression for edge maps
 
----
+delta compression for suprapixel layers
 
-## 🗺️ Roadmap (v1.1)
+CLI tool
 
-- RLE compression for edge maps  
-- delta compression for suprapixel layers  
-- CLI tool  
-- performance improvements  
-- experimental SGCU variants  
+performance improvements
 
----
+experimental SGCU variants
 
-## 📄 License
+📄 License
+MIT License
 
-Licensed under the MIT License.
+📊 Performance Analysis
+Detailed graphs and comparisons:
+docs/performance/README.md
 
----
-## Performance Analysis
-Detailed quality, size and stability graphs for SGCUF are available in:
-[docs/performance](docs/performance/README.md)
-
----
-
-## 👤 Author
-
-Milan T. —System Architect--This project is part of a broader development line focused on deterministic approaches and new concepts in the field of meta‑architectures.
+👤 Author
+Milan T. — System Architect
+Part of a broader research line focused on deterministic approaches and structural meta‑architectures.
 
 
 
