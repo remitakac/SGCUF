@@ -254,6 +254,28 @@ The project explores deterministic and structurally aware representations for sy
 
 ---
 
+## Decode Determinism
+
+SGCUF decoding is fully deterministic.  
+The decoder performs no interpolation, no heuristics, and no probabilistic reconstruction.  
+Every pixel is reconstructed exactly from the stored Y, Cb, Cr channels and the edge/suprapixel masks.
+
+### Deterministic Encode → Decode Test
+
+A full encode→decode cycle was executed on a real technical map (`real_test.png`):
+
+- Input image successfully encoded into `out.sgcuf`
+- The SGCUF file was decoded without errors
+- Output image (`decoded.png`) preserved:
+  - identical dimensions
+  - correct color channels
+  - correct edge structure
+  - all technical details (text, lines, legend)
+
+This confirms that the SGCUF big‑endian format is stable and produces a bit‑exact deterministic reconstruction of the visual structure.
+
+---
+
 ## License
 
 MIT License
