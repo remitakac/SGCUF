@@ -34,6 +34,7 @@ Binary Layout Summary
 +----------------------+-------------------------------+
 
 
+
 ## 3. Header Fields
 
 ### MAGIC (8 bytes)
