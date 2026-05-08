@@ -1,207 +1,229 @@
-# SGCUF — Structural–Raster Hybrid Image Format  
-**Version: 0.9.0 (public preview)**
+# SGCUF — Structural Gradient Compression Unit Format
+Version: 0.9.0 (Public Preview)
 
-SGCUF is a **hybrid structural–raster image format** optimized for images where **structure matters more than pixel‑level fidelity**.  
-It stores **explicit structural information** (edges, suprapixels, region transitions) and compresses color separately, resulting in significantly higher efficiency for maps, UI and technical imagery.
+SGCUF is a hybrid structural–raster image format designed for images where
+**structure is more important than pixel-perfect raster fidelity**.
 
----
+Unlike traditional image formats that compress every pixel independently,
+SGCUF stores:
 
-## 🔥 Use Case Highlight
+- structural relationships
+- edges
+- suprapixel regions
+- topology information
 
-**Offline maps on low‑power devices:**  
-SGCUF reduces data size and improves rendering efficiency by storing only structural information instead of full raster tiles.
+while color information is compressed separately.
 
----
+SGCUF is especially suitable for:
 
-## Visual Comparison
-
-**Original → SGCUF reconstruction → Difference heatmap**
-
-![](docs/performance/triplets/visual_triplet_sgcu.png)
-
----
-
-## 📌 Why SGCUF Exists
-
-Traditional formats (JPEG, PNG, WebP) compress **pixels**, not **structure**.  
-This leads to inefficiencies in:
-
-- maps  
-- UI elements  
-- diagrams  
-- technical drawings  
-- vector‑like raster exports  
-
-SGCUF avoids this by encoding **structural layers** explicitly and deterministically.
+- offline maps
+- GIS layers
+- UI rendering
+- technical drawings
+- symbolic imagery
+- low-power embedded devices
 
 ---
 
-## Performance Summary
+# Why SGCUF Exists
 
-SGCUF is optimized for **structurally dominated images where raster compression is inefficient**.
+Traditional formats such as
+:contentReference[oaicite:0]{index=0},
+:contentReference[oaicite:1]{index=1} and
+:contentReference[oaicite:2]{index=2}
+compress raster pixel data.
 
-| Method        | Bitrate (bpp) | PSNR    | SSIM   |
-|---------------|----------------|---------|--------|
-| JPEG Q=75     | 0.42           | 32.7 dB | 0.976  |
-| SGCUF T=20    | 0.41           | 41.3 dB | 0.991  |
+For structurally dominated images this often means storing large amounts of
+redundant information.
 
-**Interpretation:**  
-At the same bitrate, SGCUF preserves edges, symbols and technical shapes with significantly higher fidelity.
+SGCUF uses a different approach:
 
----
+```text
+Store structure explicitly.
+Store color separately.
+Reconstruct deterministically.
 
-## 🧠 High‑Level Concept
+Instead of treating the image as a dense raster,
+SGCUF represents the image as a combination of:
 
-SGCUF is built on the SGCU structural pipeline:
+structural edges
+stable regions
+suprapixel groups
+local relationships
 
-- edge detection  
-- suprapixel segmentation  
-- structural relationship extraction  
-- color compression (YCbCr)  
-- unified container format  
+This significantly reduces the amount of information required for many
+map-like and technical image types.
 
-This results in:
+Core Idea
 
-- sharper edges  
-- cleaner shapes  
-- fewer artifacts  
-- improved readability for technical content  
+SGCUF is based on the SGCU algorithm:
 
----
+Detect structural edges
+Segment stable regions
+Create suprapixel groups
+Compress color channels separately
+Store all layers in a unified container
 
-## 🧩 Decode Determinism
+The decoder reconstructs the image deterministically from these layers.
 
-**SGCUF decoding is fully deterministic and does not rely on interpolation, prediction or reconstruction heuristics.**  
-The same input always produces the same output.
+SGCUF does not rely on interpolation heuristics or AI reconstruction.
 
----
+Use Cases
 
-## 🏗️ SGCUF File Structure
+SGCUF is designed primarily for:
 
-A `.sgcu` file contains:
+Offline Maps
 
-1. **Header**  
-   - version  
-   - flags  
-   - structural metadata  
+Efficient storage and rendering of structured map data on low-power devices.
 
-2. **Structural Layers**  
-   - edge map  
-   - suprapixel map  
+GIS Systems
 
-3. **Color Layers (YCbCr)**  
-   - each compressed independently  
+Structural map representation with reduced data transfer requirements.
 
-4. **Optional Compression (planned)**  
-   - RLE for edges  
-   - delta compression for suprapixels  
+Smart Watches and Embedded Devices
 
----
+Lower bandwidth and lower rendering cost compared to raster tiles.
 
-## 🛠️ Pipeline Overview
+Technical Drawings
 
-1. RGB → YCbCr  
-2. Edge detection  
-3. Suprapixel segmentation  
-4. Color compression  
-5. Structural layers stored  
-6. Packed into SGCUF container  
+Preservation of sharp edges and geometric clarity.
 
----
+UI and Symbolic Graphics
 
-## ❌ When NOT to Use SGCUF
+Cleaner representation of icons, lines and interface elements.
 
-SGCUF is not suitable for:
+Visual Comparison
 
-- natural photographs  
-- noisy images  
-- high‑entropy textures (grass, stone, skin, clouds)  
-- scenes with complex gradients  
+Quick Results
 
-For these, AVIF/WebP/JPEG XL are more efficient.
+SGCUF is not intended to replace photographic codecs.
 
----
+It is optimized for structurally dominated imagery.
 
-## 🚀 Installation
+Example comparison:
 
-SGCUF is implemented in Python.
+Method	PSNR	SSIM
+JPEG Q=75	32.7 dB	0.976
+SGCUF T=20	41.3 dB	0.991
 
-```bash
+Additional bitrate and performance analysis is available in:
+
+docs/performance/
+Important Note
+
+SGCUF is NOT a general-purpose photographic codec.
+
+Natural photography, noise-heavy scenes and complex textures are still better
+handled by traditional raster codecs.
+
+SGCUF performs best when:
+
+structure dominates texture
+edges are important
+topology matters more than fine raster detail
+SGCUF File Structure
+
+A .sgcu container contains:
+
+1. Header
+version
+flags
+structural metadata
+2. Structural Layers
+edge map
+suprapixel map
+topology information
+3. Color Layers (YCbCr)
+
+Compressed independently using JPEG.
+
+4. Optional Compression Layers (planned)
+RLE edge compression
+delta compression
+structural dictionaries
+Pipeline Overview
+RGB
+ ↓
+YCbCr conversion
+ ↓
+Structural edge detection
+ ↓
+Suprapixel segmentation
+ ↓
+Color compression
+ ↓
+SGCUF container packing
+Deterministic Reconstruction
+
+SGCUF reconstruction is deterministic.
+
+The decoder does not use:
+
+hallucination
+probabilistic reconstruction
+AI inference
+adaptive interpolation
+
+The same structural data always produces the same output.
+
+Installation
+
+SGCUF is currently implemented in Python.
+
+Clone Repository
 git clone https://github.com/remitakac/SGCUF
 cd SGCUF
-python sgcu_core.py
-🧪 Usage Example
+Usage Example
 Encode PNG → SGCUF
-
-python
 from sgcuf import encode
+
 encode("input.png", "output.sgcu")
 Decode SGCUF → PNG
-
-python
 from sgcuf import decode
+
 decode("input.sgcu", "output.png")
-🔧 Command‑Line Interface (planned)
-Kód
+Command-Line Interface (Planned)
 sgcuf encode input.png output.sgcu
 sgcuf decode input.sgcu output.png
-📂 Repository Structure
-Kód
+Repository Structure
 /encoder
 /decoder
 /specification
 /examples
 /tests
 /docs
-🗺️ Roadmap (v1.1)
-RLE compression for edge maps
-
-delta compression for suprapixel layers
-
-CLI tool
-
-performance improvements
-
+Roadmap
+v1.1
+RLE edge compression
+delta compression
+CLI tools
+performance optimizations
 experimental SGCU variants
+Future Research
+embedded rendering
+low-power rendering pipelines
+robotic scene representation
+structural streaming
+SGCUF hardware acceleration
+Project Positioning
 
-📄 License
+SGCUF should not be viewed as a replacement for traditional image codecs.
+
+It represents a different approach to image representation:
+
+Raster codecs store pixels.
+SGCUF stores structure.
+
+The project explores deterministic and structurally aware representations
+for systems where meaning and topology are more important than raster fidelity.
+
+License
+
 MIT License
-# 📊 Performance Analysis
 
-## PSNR vs JPEG
-![PSNR all T](docs/performance/core/psnr_all_T_v1.png)
+Author
 
-## SSIM vs JPEG
-![SSIM all T](docs/performance/core/ssim_all_T_v1.png)
-
-## Output Size vs JPEG
-![Size all T](docs/performance/core/size_all_T_v1.png)
-
----
-
-# Visual Triplets
-
-## JPEG
-![Visual triplet JPEG](docs/performance/triplets/visual_triplet_jpeg.png)
-
-## SGCUF
-![Visual triplet SGCUF](docs/performance/triplets/visual_triplet_sgcu.png)
-
----
-
-# Heatmaps
-
-![Heatmap PSNR](docs/performance/heatmaps/heatmap_psnr_v1.png)
-![Heatmap SSIM](docs/performance/heatmaps/heatmap_ssim_v1.png)
-![Heatmap Diff Inverted](docs/performance/heatmaps/heatmap_diff_inverted.png)
-
----
-
-# Test Outputs
-
-![Output T20 Q75](docs/performance/_tests/out_T20_Q75.png)
-![Real Test](docs/performance/_tests/real_test.png)
-
-👤 Author
 Milan T. — System Architect
-Part of a broader research line focused on deterministic approaches and structural meta‑architectures.
+
+This project is part of a broader research direction focused on deterministic
+architectures and structural representations of visual information.
