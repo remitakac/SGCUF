@@ -276,6 +276,55 @@ This confirms that the SGCUF big‑endian format is stable and produces a bit‑
 
 ---
 
+## Future Directions & Research Outlook
+
+The SGCU core algorithm and the SGCUF file format represent the stable foundation of
+this project. The following areas are not part of the current release, but outline
+potential directions for future research, specialization, and applied development.
+
+### SGCU‑T — Technical Imagery
+
+SGCU‑T represents a potential specialization of the SGCU algorithm for structure‑critical
+visuals such as maps, CAD drawings, GIS layers, schematics, diagrams, and other technical
+images where precise edges and deterministic reconstruction are essential.
+
+This category also includes **IoT and small‑display environments** (embedded devices,
+wearables, smart watches, low‑power UI systems), where extremely low data rates and
+precise edge preservation are required for efficient rendering on limited hardware.
+
+#### Research Note (bpp)
+In internal experiments, the SGCU algorithm achieved very low data rates on technical
+imagery, typically in the range of 0.03–0.10 bpp. Some datasets produced even lower
+values; however, these extreme results are considered research observations rather than
+guaranteed performance parameters. They indicate the potential of SGCU‑T for domains
+where structural accuracy must be preserved with minimal data overhead.
+
+#### Relation to MTA
+The **MTA (Multi‑Topology Architecture)** project uses SGCU‑T‑style structural outputs
+as deterministic input for higher‑level reasoning, robotic inspection, and industrial
+decision systems. MTA is not part of this repository, but SGCU‑T provides the structural
+foundation required by such systems.
+
+---
+
+### SGCU‑R — Industrial & Robotic Applications
+
+A possible branch focused on industrial and robotic use cases, where precise detection
+of edges, contours, and shapes is required. SGCU‑R could serve as a deterministic input
+for machine‑vision pipelines, quality‑control systems, and real‑time 2D inspection
+processes in manufacturing environments.
+
+---
+
+### SGCU‑X — Experimental & Research Branch
+
+A research‑oriented space for experimenting with segmentation strategies, suprapixel
+models, adaptive masks, hybrid structural layers, and new algorithmic approaches.
+SGCU‑X is not intended for production use, but as a laboratory for testing new ideas
+and exploring the limits of the SGCU concept.
+
+---
+
 ## License
 
 MIT License
