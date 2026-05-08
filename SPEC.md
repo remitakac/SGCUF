@@ -133,6 +133,27 @@ A decoder must verify:
 
 ---
 
+## 11. Binary Encoding Rules
+
+### 11.1 Endianness
+All multi‑byte values in SGCUF are stored in big‑endian order.
+
+### 11.2 Data Types
+- uint8  — 1 byte
+- uint16 — 2 bytes
+- uint32 — 4 bytes
+- byte[] — raw data block
+
+### 11.3 Row‑Major Ordering
+All 2D maps (edge map, suprapixel map) are stored in row‑major order.
+
+### 11.4 Block Structure
+Each variable‑length block is stored as:
+uint32 block_length
+byte[block_length] block_data
+
+---
+
 # Slovenská verzia
 
 Tento dokument popisuje binárnu štruktúru formátu SGCUF (Suprapixel‑Gradient‑Contrast Unified Format).  
@@ -250,5 +271,27 @@ Dekóder musí overiť:
 - delta‑kompresia suprapixelov  
 - voliteľná RLE kompresia edge mapy  
 - podpora 16‑bitových obrázkov  
-- verzia 2 s chunk‑based štruktúrou  
+- verzia 2 s chunk‑based štruktúrou
+
+---
+
+## 11. Binárne pravidlá
+
+### 11.1 Endianita
+Všetky viacbajtové hodnoty sú uložené v big‑endian poradí.
+
+### 11.2 Dátové typy
+- uint8  — 1 bajt
+- uint16 — 2 bajty
+- uint32 — 4 bajty
+- byte[] — surové dáta
+
+### 11.3 Row‑major poradie
+Všetky 2D mapy (edge mapa, suprapixel mapa) sú uložené v row‑major poradí.
+
+### 11.4 Štruktúra blokov
+Každý blok s premenlivou dĺžkou je uložený ako:
+uint32 block_length
+byte[block_length] block_data
+
 
