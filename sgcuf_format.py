@@ -57,7 +57,7 @@ def encode_sgcuf(input_path, output_path, T=20, Q=85):
 
     with open(output_path, "wb") as f:
         f.write(MAGIC)
-        f.write(struct.pack("<HIIIIHHQ",
+        f.write(struct.pack(">HIIIIHHQ",
             VERSION,
             orig_W, orig_H,
             padded_img.width, padded_img.height,
@@ -65,7 +65,7 @@ def encode_sgcuf(input_path, output_path, T=20, Q=85):
             0
         ))
 
-        f.write(struct.pack("<IIIII",
+        f.write(struct.pack(">IIIII",
             len_Y, len_Cb, len_Cr,
             len_edge, len_supra
         ))
@@ -88,10 +88,10 @@ def decode_sgcuf(path):
     assert data[:8] == MAGIC
     pos += 8
 
-    (ver, orig_W, orig_H, W, H, T, Q, _) = struct.unpack_from("<HIIIIHHQ", data, pos)
+    (ver, orig_W, orig_H, W, H, T, Q, _) = struct.unpack_from(">HIIIIHHQ", data, pos)
     pos += 30
 
-    len_Y, len_Cb, len_Cr, len_edge, len_supra = struct.unpack_from("<IIIII", data, pos)
+    len_Y, len_Cb, len_Cr, len_edge, len_supra = struct.unpack_from(">IIIII", data, pos)
     pos += 20
 
     Y_jpeg = data[pos:pos+len_Y]; pos += len_Y
