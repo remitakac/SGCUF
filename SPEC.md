@@ -6,7 +6,7 @@ SGCUF is a hybrid structural–raster image format designed for images where str
 ## 1. File Overview
 All SGCUF files begin with a fixed header, followed by size descriptors for each segment, and finally the raw segment payloads. The format is fully sequential and does not require random access. All multi‑byte fields use big‑endian encoding.
 
-## 2. Binary Layout Summary
+Binary Layout Summary
 +----------------------+-------------------------------+
 | Field                | Size (bytes)                  |
 +----------------------+-------------------------------+
@@ -32,6 +32,7 @@ All SGCUF files begin with a fixed header, followed by size descriptors for each
 | EDGE_MAP             | LEN_EDGE                      |
 | SUPRAPIXEL_MAP       | LEN_SUPRA                     |
 +----------------------+-------------------------------+
+
 
 ## 3. Header Fields
 
