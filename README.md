@@ -1,18 +1,13 @@
-# SGCUF — Structural Gradient Compression Unit Format
-Version: 0.9.0 (Public Preview)
+# SGCUF — Structural Graphics Compression Unified Format
+**Stable Release:** 1.0.0  
+**Documentation updated:** 2026‑05‑09
 
-SGCUF is a hybrid structural–raster image format designed for images where  
-**structure is more important than pixel-perfect raster fidelity**.
+SGCUF is a structural image format based on the SGCU algorithm, designed for
+deterministic reconstruction, precise edge preservation, and extremely low
+data rates on technical and structure‑critical imagery.
 
-Unlike traditional image formats that compress every pixel independently,  
-SGCUF stores:
-
-- structural relationships  
-- edges  
-- suprapixel regions  
-- topology information  
-
-while color information is compressed separately.
+This repository contains the reference implementation, format specification,
+and research outlook for future SGCU specializations.
 
 SGCUF is especially suitable for:
 
