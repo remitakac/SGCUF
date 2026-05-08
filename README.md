@@ -27,10 +27,7 @@ SGCUF is especially suitable for:
 
 # Why SGCUF Exists
 
-Traditional formats such as
-:contentReference[oaicite:0]{index=0},
-:contentReference[oaicite:1]{index=1} and
-:contentReference[oaicite:2]{index=2}
+Traditional formats such as JPEG, PNG and WebP
 compress raster pixel data.
 
 For structurally dominated images this often means storing large amounts of
