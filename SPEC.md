@@ -8,32 +8,30 @@ All SGCUF files begin with a fixed header, followed by size descriptors for each
 
 ---
 
-Binary Layout Summary
-+----------------------+-------------------------------+
-| Field                | Size (bytes)                  |
-+----------------------+-------------------------------+
-| MAGIC                | 8                             |
-| VERSION              | 2                             |
-| ORIG_WIDTH           | 4                             |
-| ORIG_HEIGHT          | 4                             |
-| PADDED_WIDTH         | 4                             |
-| PADDED_HEIGHT        | 4                             |
-| T (threshold)        | 2                             |
-| Q (JPEG quality)     | 2                             |
-| RESERVED             | 8                             |
-+----------------------+-------------------------------+
-| LEN_Y                | 4                             |
-| LEN_CB               | 4                             |
-| LEN_CR               | 4                             |
-| LEN_EDGE             | 4                             |
-| LEN_SUPRA            | 4                             |
-+----------------------+-------------------------------+
-| JPEG_Y               | LEN_Y                         |
-| JPEG_CB              | LEN_CB                        |
-| JPEG_CR              | LEN_CR                        |
-| EDGE_MAP             | LEN_EDGE                      |
-| SUPRAPIXEL_MAP       | LEN_SUPRA                     |
-+----------------------+-------------------------------+
+### Binary Layout Summary
+
+| Field            | Size (bytes) |
+|------------------|--------------|
+| MAGIC            | 8            |
+| VERSION          | 2            |
+| ORIG_WIDTH       | 4            |
+| ORIG_HEIGHT      | 4            |
+| PADDED_WIDTH     | 4            |
+| PADDED_HEIGHT    | 4            |
+| T (threshold)    | 2            |
+| Q (JPEG quality) | 2            |
+| RESERVED         | 8            |
+| LEN_Y            | 4            |
+| LEN_CB           | 4            |
+| LEN_CR           | 4            |
+| LEN_EDGE         | 4            |
+| LEN_SUPRA        | 4            |
+| JPEG_Y           | LEN_Y        |
+| JPEG_CB          | LEN_CB       |
+| JPEG_CR          | LEN_CR       |
+| EDGE_MAP         | LEN_EDGE     |
+| SUPRAPIXEL_MAP   | LEN_SUPRA    |
+
 
 ---
 
