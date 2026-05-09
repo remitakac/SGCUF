@@ -1,35 +1,35 @@
 # SGCUF Pipeline Architecture
 ## Version 1.0.0
 
-Tento dokument definuje kompletný, deterministický pipeline pre SGCUF formát. Pipeline je univerzálny, nezávislý od vstupného formátu a pozostáva z presne definovaných krokov pre enkódovanie a dekódovanie. Všetky kroky sú sekvenčné, modulárne a rozšíriteľné.
+This document defines the complete, deterministic pipeline for the SGCUF format. The pipeline is universal, independent of the input image format, and consists of strictly defined steps for encoding and decoding. Each step has a clear input, output, and purpose.
 
 ## 1. Encode Pipeline (RGB → SGCUF)
 
 ### 1.1 Load Input Image
-Vstupom môže byť ľubovoľný podporovaný obrazový formát (JPEG, PNG, WebP, TIFF, BMP).  
-Výstupom je RGB matica typu uint8 s rozmermi H × W × 3.
+The input may be any supported image format (JPEG, PNG, WebP, TIFF, BMP).  
+Output: RGB matrix (uint8) with dimensions H × W × 3.
 
 ### 1.2 Pad to Even Dimensions
-Ak je šírka alebo výška nepárna, posledný riadok/stĺpec sa duplikuje.  
-Výstupom je RGB obraz s rozmermi padded_H × padded_W a pôvodné rozmery orig_H × orig_W.
+If width or height is odd, the last row or column is duplicated.  
+Output: RGB image with dimensions padded_H × padded_W and original dimensions orig_H × orig_W.
 
 ### 1.3 Convert RGB → YCbCr
-RGB obraz sa prevedie na tri luminančno‑chrominančné kanály Y, Cb, Cr.  
-Výstupom sú tri 2D matice typu uint8.
+The RGB image is converted into three channels: Y, Cb, Cr.  
+Output: three 2D matrices (uint8).
 
 ### 1.4 Structural Analysis (Edges, Suprapixels)
-Z Y kanála sa vypočítajú:
-- edge mapa (uint8)
-- suprapixel mapa (uint8)
+From the Y channel, two structural layers are computed:
+- edge map (uint8)
+- suprapixel map (uint8)
 
-Obe majú rozmer padded_H × padded_W.
+Both have dimensions padded_H × padded_W.
 
 ### 1.5 JPEG Compression of Y, Cb, Cr
-Každý kanál sa komprimuje samostatne pomocou JPEG pri kvalite Q.  
-Výstupom sú tri bytestreamy: Y_jpeg, Cb_jpeg, Cr_jpeg.
+Each channel is compressed independently using JPEG with quality Q.  
+Output: three bytestreams: Y_jpeg, Cb_jpeg, Cr_jpeg.
 
 ### 1.6 Compute Segment Lengths
-Získajú sa dĺžky:
+Lengths are computed as:
 - LEN_Y
 - LEN_CB
 - LEN_CR
@@ -37,7 +37,7 @@ Získajú sa dĺžky:
 - LEN_SUPRA = padded_H × padded_W
 
 ### 1.7 Build SGCUF Header
-Hlavička obsahuje:
+The header contains:
 - MAGIC = "SGCUFMT\n"
 - VERSION
 - ORIG_WIDTH, ORIG_HEIGHT
@@ -47,81 +47,81 @@ Hlavička obsahuje:
 - RESERVED = 0
 
 ### 1.8 Write Segment Length Table
-Zapíšu sa dĺžky všetkých segmentov v poradí:
+The following values are written in order:
 LEN_Y, LEN_CB, LEN_CR, LEN_EDGE, LEN_SUPRA.
 
 ### 1.9 Write Payloads
-V poradí:
+Payloads are written in this order:
 1. JPEG Y
 2. JPEG Cb
 3. JPEG Cr
-4. Edge mapa (raw uint8)
-5. Suprapixel mapa (raw uint8)
+4. edge map (raw uint8)
+5. suprapixel map (raw uint8)
 
-Výsledkom je kompletný SGCUF súbor.
+The result is a complete SGCUF file.
 
 ---
 
 ## 2. Decode Pipeline (SGCUF → RGB)
 
 ### 2.1 Read File and Verify MAGIC
-Načítajú sa všetky dáta a overí sa MAGIC.
+All data is loaded and the MAGIC identifier is validated.
 
 ### 2.2 Parse Header
-Z hlavičky sa načítajú:
+The following values are extracted:
 VERSION, ORIG_WIDTH, ORIG_HEIGHT, PADDED_WIDTH, PADDED_HEIGHT, T, Q.
 
 ### 2.3 Parse Segment Lengths
-Načítajú sa hodnoty LEN_Y, LEN_CB, LEN_CR, LEN_EDGE, LEN_SUPRA.
+The following lengths are read:
+LEN_Y, LEN_CB, LEN_CR, LEN_EDGE, LEN_SUPRA.
 
 ### 2.4 Extract Payloads
-Z dát sa vyrežú:
+The file is sliced into:
 - Y_jpeg
 - Cb_jpeg
 - Cr_jpeg
-- edge mapa (raw)
-- suprapixel mapa (raw)
+- edge map (raw)
+- suprapixel map (raw)
 
 ### 2.5 Reconstruct Structural Maps
-Edge a suprapixel mapy sa prevedú na 2D matice typu uint8.
+Edge and suprapixel maps are converted into 2D uint8 matrices.
 
 ### 2.6 JPEG Decompression
-Každý kanál sa dekomprimuje:
+Each channel is decompressed:
 Yd, Cbd, Crd.
 
 ### 2.7 Convert YCbCr → RGB
-Získaný je RGB obraz s rozmermi padded_H × padded_W.
+An RGB image of size padded_H × padded_W is reconstructed.
 
 ### 2.8 Crop to Original Size
-Obraz sa oreže na orig_H × orig_W.  
-Výstupom je finálny RGB obraz.
+The image is cropped to orig_H × orig_W.  
+Output: final RGB image.
 
 ---
 
 ## 3. Pipeline Properties
 
 ### Deterministic
-Každý krok má jednoznačný vstup a výstup.  
-Pipeline neobsahuje žiadne náhodné operácie.
+Each step has a single, unambiguous input and output.  
+No randomness is used anywhere in the pipeline.
 
 ### Modular
-Každý krok je samostatný modul, ktorý možno nahradiť bez zmeny ostatných krokov.
+Each step is an independent module that can be replaced without affecting the others.
 
 ### Extensible
-Pipeline umožňuje budúce rozšírenia:
-- ďalšie štrukturálne vrstvy
-- alternatívne kompresné metódy
-- metadáta
-- validačné bloky
+The pipeline supports future extensions:
+- additional structural layers
+- alternative compression methods
+- metadata blocks
+- validation layers
 
-### Format‑Independent Input
-Pipeline je nezávislý od vstupného formátu.  
-Všetky vstupy sa konvertujú na RGB a pipeline pokračuje jednotne.
+### Input Format Independent
+All inputs are converted to RGB, and the pipeline proceeds identically for all formats.
 
 ---
 
 ## 4. Summary
+The SGCUF pipeline defines the complete flow of data from an input image to a binary SGCUF file and back.  
+It is deterministic, modular, extensible, and independent of the input format.  
+This document serves as the architectural foundation for implementation, validation, and future development of the SGCUF system.
 
-SGCUF pipeline definuje kompletný tok dát od vstupného obrazu po binárny SGCUF súbor a späť.  
-Je deterministický, modulárny, rozšíriteľný a nezávislý od vstupného formátu.  
-Tento dokument slúži ako architektonický základ pre implementáciu, validáciu a budúci vývoj SGCUF systému.
